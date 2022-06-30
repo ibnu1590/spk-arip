@@ -35,6 +35,7 @@
                                 <th>Alamat</th>
                                 <th>Telepon</th>
                                 <th>Email</th>
+                                <th>Role</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -46,6 +47,7 @@
                                 <td><?= $data['alamat']?></td>
                                 <td><?= $data['telepon']?></td>
                                 <td><?= $data['email']?></td>
+                                <td><?= $data['role']?></td>
                                 <td>
                                     <?php
                                     if($data['username']!="admin"){

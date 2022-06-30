@@ -1,4 +1,17 @@
 <?php include 'header.php';?>
+<?php
+    //memulai session
+    // session_start();
+
+    //jika ada session, maka akan diarahkan ke halaman dashboard admin
+    if(isset($_SESSION['id'])){
+
+        //mengarahkan ke halaman dashboard admin
+        header("Location: ./index.php");
+        die();
+    }
+?>
+
 
 <div class="content-wrapper">
         <div class="container">
@@ -29,10 +42,10 @@
                 <div class="col-md-6">
                     <div class="alert alert-info">
                     <br />
-                    <?php if ($_GET['error_login']==1): ?>
+                    <!-- <?php if ($_GET['error_login']==1): ?>
                          <div class="alert alert-danger">
                             Anda Harus Login Terlebih Dahulu !
-                        </div>
+                        </div> -->
                     <?php endif ?>
                     <form method="post" action="proses_login.php">
                     	<label>Enter Username : </label>

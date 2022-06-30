@@ -1,4 +1,12 @@
- <!-- LOGO HEADER END-->
+<?php
+    session_start();
+    error_reporting(0);
+    
+    if(empty($_SESSION['id'])){
+        header('location:login.php?error_login=1');
+    }
+?>
+<!-- LOGO HEADER END-->
  <section class="menu-section">
         <div class="container">
             <div class="row">
@@ -15,8 +23,14 @@
                                     <li><a style="text-transform: capitalize;" href="tampil_subkriteria.php" id="sk">Data Sub Kriteria</a></li>
                                 </ul>
                             </li>
+                            <?php 
+                                if ($_SESSION['role'] == 'kepalasekolah') {
+                            ?>
                             <li><a style="text-transform: capitalize;" href="tampil_tpa.php" id="tpa">Penilaian Karyawan</a></li>
                             <li><a style="text-transform: capitalize;" href="proses_spk.php" id="proses">Proses SPK</a></li>  
+                            <?php
+                                }
+                            ?>
                             <li><a style="text-transform: capitalize;" href="ubah_password.php" id="proses">Ubah Password</a></li>                                                               
                             <li>
                                 <a style="text-transform: capitalize;" href="" data-toggle="dropdown" > Laporan</a>

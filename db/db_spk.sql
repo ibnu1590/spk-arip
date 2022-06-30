@@ -1,5 +1,5 @@
 ﻿# Host: localhost  (Version 5.5.5-10.4.24-MariaDB)
-# Date: 2022-06-29 23:46:41
+# Date: 2022-06-30 17:15:57
 # Generator: MySQL-Front 6.0  (Build 2.20)
 
 
@@ -16,14 +16,15 @@ CREATE TABLE `admin` (
   `email` varchar(200) NOT NULL,
   `username` varchar(200) DEFAULT NULL,
   `password` varchar(200) DEFAULT NULL,
+  `role` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 #
 # Data for table "admin"
 #
 
-INSERT INTO `admin` VALUES (1,'admin','Jkt','741','admin@gmail.com','admin','21232f297a57a5a743894a0e4a801fc3');
+INSERT INTO `admin` VALUES (1,'Kepala Sekolah','Jkt','741','admin@gmail.com','kepalasekolah','ad9e9366bd65e665fa808da635512230','kepalasekolah'),(10,'Tata Usaha','peninggilan','089606854454','tatausaha@gmail.com','tatausaha','82849c85acf1f4e6e4eec748f0aeddf4','tatausaha');
 
 #
 # Structure for table "hasil_spk"
@@ -40,7 +41,7 @@ CREATE TABLE `hasil_spk` (
 # Data for table "hasil_spk"
 #
 
-INSERT INTO `hasil_spk` VALUES (11,'Ita Rosita, S.Pd.I',4.30),(12,'Marwati, S.Pd.I',4.10),(13,'Rusmi, S.Pd.I',4.20),(14,'Dede Indrawati, S.Pd.I',3.60),(15,'Sri Pebriani, S.Pd',4.10);
+INSERT INTO `hasil_spk` VALUES (11,'Ita Rosita, S.Pd.I',4.20),(12,'Marwati, S.Pd.I',4.00),(15,'Sri Pebriani, S.Pd',3.90),(13,'Rusmi, S.Pd.I',3.60),(14,'Dede Indrawati, S.Pd.I',4.70);
 
 #
 # Structure for table "hasil_tpa"
@@ -50,20 +51,20 @@ DROP TABLE IF EXISTS `hasil_tpa`;
 CREATE TABLE `hasil_tpa` (
   `id_test` int(11) NOT NULL AUTO_INCREMENT,
   `id_calon_kr` int(11) DEFAULT NULL,
-  `Tanggung_Jawab` int(11) DEFAULT NULL,
-  `Penguasaan_Materi` int(11) DEFAULT NULL,
+  `Tanggung Jawab` int(11) DEFAULT NULL,
+  `Penguasaan Materi` int(11) DEFAULT NULL,
   `Sikap` int(11) DEFAULT NULL,
   `Absensi` int(11) DEFAULT NULL,
   `Loyalitas` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_test`),
   KEY `id_calon_kr` (`id_calon_kr`)
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=latin1;
 
 #
 # Data for table "hasil_tpa"
 #
 
-INSERT INTO `hasil_tpa` VALUES (68,11,67,73,80,84,89),(69,12,70,72,79,83,88),(70,13,68,74,77,85,90),(71,14,71,75,78,82,87),(72,15,69,72,79,83,91);
+INSERT INTO `hasil_tpa` VALUES (73,11,68,75,80,86,90),(74,12,67,73,79,86,90),(77,15,71,75,80,86,91),(79,13,71,73,81,83,87),(80,14,69,76,79,84,89);
 
 #
 # Structure for table "karyawan"
@@ -105,13 +106,13 @@ CREATE TABLE `kriteria` (
   `bobot` float(5,2) DEFAULT NULL,
   `type` varchar(12) DEFAULT NULL,
   PRIMARY KEY (`id_kriteria`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 
 #
 # Data for table "kriteria"
 #
 
-INSERT INTO `kriteria` VALUES (35,'Tanggung_Jawab',20.00,'Core Factor'),(36,'Penguasaan_Materi',15.00,'Secondary Fa'),(37,'Sikap',25.00,'Core Factor'),(38,'Absensi',25.00,'Core Factor'),(39,'Loyalitas',15.00,'Secondary Fa');
+INSERT INTO `kriteria` VALUES (35,'Tanggung Jawab',20.00,'Core Factor'),(36,'Penguasaan Materi',15.00,'Secondary Fa'),(37,'Sikap',25.00,'Core Factor'),(38,'Absensi',25.00,'Core Factor'),(39,'Loyalitas',15.00,'Secondary Fa');
 
 #
 # Structure for table "sub_kriteria"

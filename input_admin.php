@@ -40,6 +40,14 @@
                               <input required type="text" class="form-control" id="email" name="email">
                           </div>
                           <div class="form-group">
+                              <label for="role">Role</label>
+                                <select required class="form-control" ID="role" name="role">
+                                <option value="">-PILIH Role-</option>
+                                <option value="tatausaha">Tata Usaha</option>
+                                <option value="kepalasekolah">Kepala Sekolah</option>
+                                </select>
+                          </div>
+                          <div class="form-group">
                               <label for="nama">Username</label>
                               <input required type="text" class="form-control" id="username" name="username">
                           </div>
