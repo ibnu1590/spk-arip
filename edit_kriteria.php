@@ -27,7 +27,9 @@
                               <input type="hidden" name="id" value="<?= $data[0]?>">
                               <div class="form-group">
                                   <label for="nama">Nama Kriteria</label>
-                                  <input type="text" class="form-control" id="kriteria" name="kriteria" value="<?= $data['kriteria']?>">
+                                  <input type="text" class="form-control" id="kriteria" name="kriteria" value="<?php
+                                            $tmp = explode('_',$data['kriteria']);
+                                            echo ucwords(implode(' ',$tmp));?>">
                               </div>
                               <div class="form-group">
                                   <label>Bobot</label>
@@ -37,7 +39,7 @@
                                   <label>Type</label>
                                   <select class="form-control" name="type">
                                       <option value="Core Factor" <?php if($data['type']=='Core Factor'){ echo 'selected'; }?>>Core Factor</option>
-                                      <option value="Secondary Factor" <?php if($data['type']=='Secondary Factor'){ echo 'selected'; }?>>Secondary Factor</option>
+                                      <option value="Secondary Factor" <?php if($data['type']=='Secondary Fa'){ echo 'selected'; }?>>Secondary Factor</option>
                                   </select>
                               </div>  
                           <?php endforeach ?>

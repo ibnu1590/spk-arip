@@ -39,7 +39,8 @@
                                     <li><a style="text-transform: capitalize;" href="lap_karyawan.php" id="ck">Lap Karyawan</a></li>
                                     <li><a style="text-transform: capitalize;" href="lap_kriteria.php" id="ds">Lap Kriteria</a></li>
                                     <li><a style="text-transform: capitalize;" href="lap_subkriteria.php" id="sk">Lap Sub Kriteria</a></li>
-                                    <li><a style="text-transform: capitalize;" href="lap_penilaian.php" id="sk">Lap Penilaian</a></li>
+                                    <li><a style="text-transform: capitalize;" href="tampil_penilaian.php" id="sk">Lap Penilaian</a></li>
+                                    <li><a style="text-transform: capitalize;" href="tampil_hasilkeputusan.php" id="sk">Lap Hasil Keputusan</a></li>
                                 </ul>
                             </li>
                             <li><a style="text-transform: capitalize;" href="logout.php" id="ds">Logout</a></li>

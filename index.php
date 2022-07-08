@@ -135,7 +135,46 @@
                 </div>
                 </div>
                 <!-- /.row -->
-            
+                <!-- open  -->
+                <div class="row">
+                <div class="col-md-12">
+                    <h4 class="page-head-line">Riwayat Penilaian</h4>
+                </div>
+                <div><a class="btn btn-danger" onclick="return confirm('Yakin Hapus?')" href="delete_riwayat_penilaian.php">Hapus Riwayat Penilaian</a></div>
+                <br>
+                <div class="table-responsive">
+                    <table id="example1" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Nilai</th>
+                                <th>Ranking</th>
+                                <th>Tanggal Penilaian</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                $x=1;
+                                
+                                foreach($db->select('*','hasil_spk')->get() as $data):
+                                    
+                            ?>
+                                <tr>
+                                    <td><?= $x++  ?></td>
+                                    <td><?= $data['nama']?></td>
+                                    <td><?= $data['nilai']  ?></td>
+                                    <td><?= $data['ranking']  ?></td>
+                                    <td><?= $data['tanggal_lap']  ?></td>
+                                </tr>
+                            <?php
+                                endforeach;
+                            ?>
+                        </tbody>
+                    </table>    
+                </div>
+            </div>
+            <!-- close -->
         </div>
     </div>
     <!-- CONTENT-WRAPPER SECTION END-->
@@ -146,4 +185,9 @@
     $(function(){
         $("#home").addClass('menu-top-active');
     });
+</script>
+<script type="text/javascript">
+            $(function() {
+                $('#example1').dataTable();
+            });
 </script>

@@ -1,5 +1,5 @@
 ﻿# Host: localhost  (Version 5.5.5-10.4.24-MariaDB)
-# Date: 2022-06-30 17:15:57
+# Date: 2022-07-08 14:52:06
 # Generator: MySQL-Front 6.0  (Build 2.20)
 
 
@@ -34,14 +34,21 @@ DROP TABLE IF EXISTS `hasil_spk`;
 CREATE TABLE `hasil_spk` (
   `id_calon_kr` int(11) NOT NULL,
   `nama` varchar(255) DEFAULT NULL,
-  `nilai` float(11,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `nilai` float(11,1) DEFAULT NULL,
+  `tanggal_lap` date DEFAULT NULL,
+  `minggu` varchar(2) DEFAULT NULL,
+  `bulan` varchar(10) DEFAULT NULL,
+  `tahun` varchar(4) DEFAULT NULL,
+  `ranking` int(11) DEFAULT NULL,
+  `id_spk` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_spk`)
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4;
 
 #
 # Data for table "hasil_spk"
 #
 
-INSERT INTO `hasil_spk` VALUES (11,'Ita Rosita, S.Pd.I',4.20),(12,'Marwati, S.Pd.I',4.00),(15,'Sri Pebriani, S.Pd',3.90),(13,'Rusmi, S.Pd.I',3.60),(14,'Dede Indrawati, S.Pd.I',4.70);
+INSERT INTO `hasil_spk` VALUES (12,'Marwati, S.Pd.I',4.0,'2022-07-07','2','Jul','2022',2,41),(15,'Sri Pebriani, S.Pd',3.9,'2022-07-07','2','Jul','2022',3,42),(13,'Rusmi, S.Pd.I',3.6,'2022-07-07','2','Jul','2022',4,43),(14,'Dede Indrawati, S.Pd.I',4.7,'2022-07-07','2','Jul','2022',1,44),(11,'Ita Rosita, S.Pd.I',3.0,'2022-07-07','2','Jul','2022',5,45);
 
 #
 # Structure for table "hasil_tpa"
@@ -55,16 +62,39 @@ CREATE TABLE `hasil_tpa` (
   `Penguasaan Materi` int(11) DEFAULT NULL,
   `Sikap` int(11) DEFAULT NULL,
   `Absensi` int(11) DEFAULT NULL,
-  `Loyalitas` int(11) DEFAULT NULL,
+  `loyalitas` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_test`),
   KEY `id_calon_kr` (`id_calon_kr`)
-) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=latin1;
 
 #
 # Data for table "hasil_tpa"
 #
 
-INSERT INTO `hasil_tpa` VALUES (73,11,68,75,80,86,90),(74,12,67,73,79,86,90),(77,15,71,75,80,86,91),(79,13,71,73,81,83,87),(80,14,69,76,79,84,89);
+INSERT INTO `hasil_tpa` VALUES (74,12,67,73,79,86,90),(77,15,71,75,80,86,91),(79,13,71,73,81,83,87),(80,14,69,76,79,84,89),(81,11,67,72,77,82,87);
+
+#
+# Structure for table "hitung"
+#
+
+DROP TABLE IF EXISTS `hitung`;
+CREATE TABLE `hitung` (
+  `id_match` int(11) NOT NULL AUTO_INCREMENT,
+  `id_calon_kr` int(11) DEFAULT NULL,
+  `id_subkriteria` int(11) DEFAULT NULL,
+  `nilai_gap` int(11) DEFAULT NULL,
+  `nilai_bobot` float(11,1) DEFAULT NULL,
+  `tanggal_lap` date DEFAULT NULL,
+  `kriteria` varchar(50) DEFAULT NULL,
+  `nama` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id_match`)
+) ENGINE=InnoDB AUTO_INCREMENT=316 DEFAULT CHARSET=utf8mb4;
+
+#
+# Data for table "hitung"
+#
+
+INSERT INTO `hitung` VALUES (291,12,1,-2,3.0,'2022-07-07','Tanggung Jawab','Marwati, S.Pd.I'),(292,12,2,-1,4.0,'2022-07-07','Penguasaan Materi','Marwati, S.Pd.I'),(293,12,3,0,5.0,'2022-07-07','Sikap','Marwati, S.Pd.I'),(294,12,5,2,3.5,'2022-07-07','Absensi','Marwati, S.Pd.I'),(295,12,4,1,4.5,'2022-07-07','Loyalitas','Marwati, S.Pd.I'),(296,15,5,2,3.5,'2022-07-07','Tanggung Jawab','Sri Pebriani, S.Pd'),(297,15,4,1,4.5,'2022-07-07','Penguasaan Materi','Sri Pebriani, S.Pd'),(298,15,4,1,4.5,'2022-07-07','Sikap','Sri Pebriani, S.Pd'),(299,15,5,2,3.5,'2022-07-07','Absensi','Sri Pebriani, S.Pd'),(300,15,5,2,3.5,'2022-07-07','Loyalitas','Sri Pebriani, S.Pd'),(301,13,5,2,3.5,'2022-07-07','Tanggung Jawab','Rusmi, S.Pd.I'),(302,13,2,-1,4.0,'2022-07-07','Penguasaan Materi','Rusmi, S.Pd.I'),(303,13,5,2,3.5,'2022-07-07','Sikap','Rusmi, S.Pd.I'),(304,13,2,-1,4.0,'2022-07-07','Absensi','Rusmi, S.Pd.I'),(305,13,1,-2,3.0,'2022-07-07','Loyalitas','Rusmi, S.Pd.I'),(306,14,3,0,5.0,'2022-07-07','Tanggung Jawab','Dede Indrawati, S.Pd.I'),(307,14,5,2,3.5,'2022-07-07','Penguasaan Materi','Dede Indrawati, S.Pd.I'),(308,14,3,0,5.0,'2022-07-07','Sikap','Dede Indrawati, S.Pd.I'),(309,14,3,0,5.0,'2022-07-07','Absensi','Dede Indrawati, S.Pd.I'),(310,14,3,0,5.0,'2022-07-07','Loyalitas','Dede Indrawati, S.Pd.I'),(311,11,1,-2,3.0,'2022-07-07','Tanggung Jawab','Ita Rosita, S.Pd.I'),(312,11,1,-2,3.0,'2022-07-07','Penguasaan Materi','Ita Rosita, S.Pd.I'),(313,11,1,-2,3.0,'2022-07-07','Sikap','Ita Rosita, S.Pd.I'),(314,11,1,-2,3.0,'2022-07-07','Absensi','Ita Rosita, S.Pd.I'),(315,11,1,-2,3.0,'2022-07-07','Loyalitas','Ita Rosita, S.Pd.I');
 
 #
 # Structure for table "karyawan"
@@ -103,7 +133,7 @@ DROP TABLE IF EXISTS `kriteria`;
 CREATE TABLE `kriteria` (
   `id_kriteria` int(11) NOT NULL AUTO_INCREMENT,
   `kriteria` varchar(32) DEFAULT NULL,
-  `bobot` float(5,2) DEFAULT NULL,
+  `bobot` float(5,1) DEFAULT NULL,
   `type` varchar(12) DEFAULT NULL,
   PRIMARY KEY (`id_kriteria`)
 ) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
@@ -112,7 +142,7 @@ CREATE TABLE `kriteria` (
 # Data for table "kriteria"
 #
 
-INSERT INTO `kriteria` VALUES (35,'Tanggung Jawab',20.00,'Core Factor'),(36,'Penguasaan Materi',15.00,'Secondary Fa'),(37,'Sikap',25.00,'Core Factor'),(38,'Absensi',25.00,'Core Factor'),(39,'Loyalitas',15.00,'Secondary Fa');
+INSERT INTO `kriteria` VALUES (35,'Tanggung Jawab',20.0,'Core Factor'),(36,'Penguasaan Materi',15.0,'Secondary Fa'),(37,'Sikap',25.0,'Core Factor'),(38,'Absensi',25.0,'Core Factor'),(39,'loyalitas',15.0,'Secondary Fa');
 
 #
 # Structure for table "sub_kriteria"
@@ -123,7 +153,7 @@ CREATE TABLE `sub_kriteria` (
   `id_subkriteria` int(11) NOT NULL AUTO_INCREMENT,
   `id_kriteria` int(11) NOT NULL,
   `subkriteria` varchar(255) NOT NULL,
-  `nilai` float(10,2) NOT NULL,
+  `nilai` float(10,1) DEFAULT NULL,
   PRIMARY KEY (`id_subkriteria`)
 ) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=latin1;
 
@@ -131,4 +161,4 @@ CREATE TABLE `sub_kriteria` (
 # Data for table "sub_kriteria"
 #
 
-INSERT INTO `sub_kriteria` VALUES (11,13,'terlambat 0 kali',10.00),(12,13,'terlambat 1 kali',9.00),(13,13,'terlambat 2 kali',8.00),(14,13,'terlambat 3 kali',7.00),(15,13,'terlambat 4 kali',6.00),(16,13,'terlambat 5 kali',5.00),(17,13,'terlambat 6 kali',4.00),(18,13,'terlambat 7 kali',3.00),(19,13,'terlambat 8 kali',2.00),(20,13,'terlambat 9 kali',1.00),(21,13,'terlambat >10 kali',0.00),(22,14,'Baik Sekali',5.00),(23,14,'baik',4.00),(24,14,'cukup',3.00),(25,14,'kurang',2.00),(26,14,'kurang sekali',1.00),(27,15,'Baik Sekali',5.00),(28,15,'baik',4.00),(29,15,'cukup',3.00),(30,15,'kurang',2.00),(31,15,'kurang sekali',1.00),(57,32,'Baik Sekali',5.00),(58,32,'baik',4.00),(59,32,'cukup',3.00),(60,32,'kurang',2.00),(61,32,'kurang sekali',1.00),(67,35,'Kurang Sekali',1.00),(68,35,'Kurang',2.00),(69,35,'Cukup',3.00),(70,35,'Baik',4.00),(71,35,'Baik Sekali',5.00),(72,36,'Kurang Sekali',1.00),(73,36,'Kurang',2.00),(74,36,'Cukup',3.00),(75,36,'Baik',4.00),(76,36,'Baik Sekali',5.00),(77,37,'Kurang Sekali',1.00),(78,37,'Kurang',2.00),(79,37,'Cukup',3.00),(80,37,'Baik',4.00),(81,37,'Baik Sekali',5.00),(82,38,'Kurang Sekali',1.00),(83,38,'Kurang',2.00),(84,38,'Cukup',3.00),(85,38,'Baik',4.00),(86,38,'Baik Sekali',5.00),(87,39,'Kurang Sekali',1.00),(88,39,'Kurang',2.00),(89,39,'Cukup',3.00),(90,39,'Baik',4.00),(91,39,'Baik Sekali',5.00);
+INSERT INTO `sub_kriteria` VALUES (11,13,'terlambat 0 kali',10.0),(12,13,'terlambat 1 kali',9.0),(13,13,'terlambat 2 kali',8.0),(14,13,'terlambat 3 kali',7.0),(15,13,'terlambat 4 kali',6.0),(16,13,'terlambat 5 kali',5.0),(17,13,'terlambat 6 kali',4.0),(18,13,'terlambat 7 kali',3.0),(19,13,'terlambat 8 kali',2.0),(20,13,'terlambat 9 kali',1.0),(21,13,'terlambat >10 kali',0.0),(22,14,'Baik Sekali',5.0),(23,14,'baik',4.0),(24,14,'cukup',3.0),(25,14,'kurang',2.0),(26,14,'kurang sekali',1.0),(27,15,'Baik Sekali',5.0),(28,15,'baik',4.0),(29,15,'cukup',3.0),(30,15,'kurang',2.0),(31,15,'kurang sekali',1.0),(57,32,'Baik Sekali',5.0),(58,32,'baik',4.0),(59,32,'cukup',3.0),(60,32,'kurang',2.0),(61,32,'kurang sekali',1.0),(67,35,'Kurang Sekali',1.0),(68,35,'Kurang',2.0),(69,35,'Cukup',3.0),(70,35,'Baik',4.0),(71,35,'Baik Sekali',5.0),(72,36,'Kurang Sekali',1.0),(73,36,'Kurang',2.0),(74,36,'Cukup',3.0),(75,36,'Baik',4.0),(76,36,'Baik Sekali',5.0),(77,37,'Kurang Sekali',1.0),(78,37,'Kurang',2.0),(79,37,'Cukup',3.0),(80,37,'Baik',4.0),(81,37,'Baik Sekali',5.0),(82,38,'Kurang Sekali',1.0),(83,38,'Kurang',2.0),(84,38,'Cukup',3.0),(85,38,'Baik',4.0),(86,38,'Baik Sekali',5.0),(87,39,'Kurang Sekali',1.0),(88,39,'Kurang',2.0),(89,39,'Cukup',3.0),(90,39,'Baik',4.0),(91,39,'Baik Sekali',5.0);

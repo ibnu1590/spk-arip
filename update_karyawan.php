@@ -18,7 +18,7 @@
 		
 		if ($error > 0)
 		{
-			$db->update('karyawan',"nama='$nama',ttl='$ttl',skill='$skill',pengalaman='$pengalaman',
+			$db->update('karyawan',"nik='$nik',nama='$nama',ttl='$ttl',skill='$skill',pengalaman='$pengalaman',
 									TempatLahir='$tempatlahir',PendidikanTerakhir='$pendidikan',
 									alamat='$alamat',Jabatan='$jabatan',TglBergabung='$ttb',jeniskelamin='$jeniskelamin',telepon='$telepon'")->where("id_calon_kr='$id_calon_kr'")->count();
 			header('location:tampil_karyawan.php');		
@@ -27,7 +27,7 @@
 			if($_FILES['foto']['size'] < 10000000){
 				//move_uploaded_file($_FILES['foto']['tmp_name'], $target_file);
 				move_uploaded_file($_FILES["foto"]["tmp_name"],$target_dir. $_FILES["foto"]["name"]);
-				if($db->update('karyawan',"nama='$nama',foto='$file_name',ttl='$ttl',skill='$skill',pengalaman='$pengalaman',
+				if($db->update('karyawan',"nik='$nik',nama='$nama',foto='$file_name',ttl='$ttl',skill='$skill',pengalaman='$pengalaman',
 											TempatLahir='$tempatlahir',PendidikanTerakhir='$pendidikan',
 											alamat='$alamat',Jabatan='$jabatan',TglBergabung='$ttb',jeniskelamin='$jeniskelamin',telepon='$telepon'")->where("id_calon_kr='$id_calon_kr'")->count()==1){
 					header('location:tampil_karyawan.php');
@@ -41,7 +41,7 @@
 			
 		}		
 	} else{
-		if($db->update('karyawan',"nama='$nama',ttl='$ttl',skill='$skill',pengalaman='$pengalaman',
+		if($db->update('karyawan',"nik='$nik',nama='$nama',ttl='$ttl',skill='$skill',pengalaman='$pengalaman',
 								TempatLahir='$tempatlahir',PendidikanTerakhir='$pendidikan',
 								alamat='$alamat',Jabatan='$jabatan',TglBergabung='$ttb',jeniskelamin='$jeniskelamin',telepon='$telepon'")->where("id_calon_kr='$id_calon_kr'")->count()==1){
 			header('location:tampil_karyawan.php');

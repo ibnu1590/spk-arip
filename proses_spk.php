@@ -43,7 +43,7 @@
                                 </tr>
                             <?php
                                 endforeach;
-                                $db->delete('hasil_spk')->count() == 1;
+                                // $db->delete('banding')->count() == 1;
                             ?>
                         </tbody>
                     </table>
@@ -79,7 +79,8 @@
                                 ?>
                                     <tr>
                                         <td><?= $data['nama']?></td>
-                                        <?php foreach ($db->select('kriteria','kriteria')->get() as $td): ?>
+                                        <?php foreach ($db->select('kriteria','kriteria')->get() as $td):
+                                             ?>
                                         <td><?=  $db->getnilaisubkriteria($data[$td['kriteria']]) - 3?></td>
                                         <?php endforeach ?>
                                     </tr>
@@ -113,8 +114,13 @@
                                 ?>
                                     <tr>
                                         <td><?= $data['nama']?></td>
-                                        <?php foreach ($db->select('kriteria','kriteria')->get() as $td): 
+                                        <?php foreach ($db->select('id_kriteria,kriteria','kriteria')->get() as $td): 
+                                            $nilai_gap = $db->getnilaisubkriteria($data[$td['kriteria']]) - 3;
                                             $nilaiGAP = $db->getnilaisubkriteria($data[$td['kriteria']]) - 3;
+                                            $nilaiSubkriteria = $db->getnilaisubkriteria($data[$td['kriteria']]);
+                                            $tmp = explode('_',$td['kriteria']);
+                                            $namaKriteria = ucwords(implode(' ',$tmp));
+
                                             if ($nilaiGAP == 0){
                                                 $nilaiGAP = 5;
                                             } else if ($nilaiGAP == 1){
@@ -133,6 +139,15 @@
                                                 $nilaiGAP = 1.5;
                                             } elseif ($nilaiGAP == -4) {
                                                 $nilaiGAP = 1;
+                                            }
+                                            $tgl = date("Y-m-d");
+
+                                            if($db->select('id_calon_kr','hitung')->where("id_calon_kr='$data[id_calon_kr]' and tanggal_lap='$tgl' and kriteria='$namaKriteria'")->count() == 0){
+                                                
+                                                $db->hitung($data['id_calon_kr'],$nilaiSubkriteria,$nilai_gap,$nilaiGAP,$tgl,$namaKriteria,$data['nama']);
+                                            } else {
+                                                
+                                                $db->update('hitung',"id_subkriteria='$nilaiSubkriteria', nilai_gap='$nilai_gap', nilai_bobot='$nilaiGAP', tanggal_lap='$tgl', kriteria='$namaKriteria'")->where("id_calon_kr='$data[id_calon_kr]' and tanggal_lap='$tgl' and kriteria='$namaKriteria'")->count();
                                             }
                                         ?>
                                         <td><?=  $nilaiGAP ?></td>
@@ -206,8 +221,8 @@
 
                                             $nilaiCFSF = $nilaiCore." ".$nilaiSecondary;
                                         ?>
-                                        <td><?= $nilaiCore  ?></td>
-                                        <td><?= $nilaiSecondary  ?></td>
+                                        <td><?= round($nilaiCore,1)  ?></td>
+                                        <td><?= round($nilaiSecondary,1)  ?></td>
                                     </tr>
                                 <?php
                                     endforeach;
@@ -275,9 +290,32 @@
 
                                             $nilaiSecondary = $tampung/$w;
                                             $tampung = 0;
-
+                                            $tgl = date("Y-m-d");
                                             $nilaiFinal = 0.6*$nilaiCore + 0.4*$nilaiSecondary;
-                                            $ranking = $db->ranking($data['id_calon_kr'],$data['nama'],$nilaiFinal);
+
+                                            //open
+                                            $hasil = [];
+                                            $bulan = date('M'); 
+                                            $tahun = date('Y'); 
+                                            $tanggal = date('Y-m-d');
+                                            $minggu = $db->weekOfMonth($tanggal);
+                                            
+                                            if($db->select('id_calon_kr','hasil_spk')->where("id_calon_kr='$data[id_calon_kr]' and tanggal_lap='$tgl'")->count() == 0){
+                                                $db->insert('hasil_spk',"'$data[id_calon_kr]','$data[nama]','$nilaiFinal','$tgl','$minggu','$bulan','$tahun','$urutanRank',''")->count();
+                                            } else {
+                                                $db->update('hasil_spk',"nilai='$nilaiFinal', ranking='$urutanRank'")->where("id_calon_kr='$data[id_calon_kr]' and tanggal_lap='$tgl'")->count();
+                                            }
+
+                                            $urutanRank = 0;
+                                            foreach($db->select('DISTINCT *','hasil_spk')->where("tanggal_lap='$tgl' and minggu='$minggu' and bulan='$bulan' and tahun='$tahun' and id_calon_kr in (select id_calon_kr from hasil_tpa)")->order_by('hasil_spk.nilai','desc')->get() as $data):
+                                            $urutanRank++;
+                                                if($db->select('id_calon_kr','hasil_spk')->where("id_calon_kr='$data[id_calon_kr]' and tanggal_lap='$tgl'")->count() == 0){
+                                                    $db->insert('hasil_spk',"'$data[id_calon_kr]','$data[nama]','$nilaiFinal','$tgl','$minggu','$bulan','$tahun','$urutanRank',''")->count();
+                                                } else {
+                                                    $db->update('hasil_spk',"ranking='$urutanRank'")->where("id_calon_kr='$data[id_calon_kr]' and tanggal_lap='$tgl'")->count();
+                                                }
+                                            endforeach; 
+                                            // close
                                         ?>
                                         <td><?= $nilaiFinal  ?></td>
                                     </tr>
@@ -296,19 +334,20 @@
                                 <tr>
                                     <th>Nama </th>
                                     <th>Nilai Total</th>
-                                    <th>Rank</th>
+                                    <th>Ranking</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
                                     $x=1;
-                                    foreach($db->select('DISTINCT *','hasil_spk')->order_by('hasil_spk.nilai','desc')->get() as $data):
-                                        
+                                    // foreach($db->select('DISTINCT *','hasil_spk')->order_by('hasil_spk.nilai','desc')->get() as $data):
+                                    foreach($db->select('DISTINCT *','hasil_spk')->where("tanggal_lap='$tgl' and minggu='$minggu' and bulan='$bulan' and tahun='$tahun' and id_calon_kr in (select id_calon_kr from hasil_tpa)")->order_by('hasil_spk.nilai','desc')->get() as $data):
+                                    
                                 ?>
                                     <tr>
                                         <td><?= $data['nama']?></td>
                                         <td><?= $data['nilai']  ?></td>
-                                        <td><?= $x++  ?></td>
+                                        <td><?= $x++ ?></td>
                                     </tr>
                                 <?php
                                     endforeach;
@@ -318,11 +357,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="row">
-                <div class="col-md-12 text-center">
-                    <button class="btn btn-lg" onclick="tpl()">PROSES</button>
-                </div>
-            </div> -->
             <br>
     </div>
 </div>

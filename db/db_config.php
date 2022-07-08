@@ -111,6 +111,13 @@
 			}
 		}
 
+		//nilaigap
+		function hitung($id_kr,$id_subkriteria,$nilai_gap,$nilai_bobot,$tanggal_lap,$kriteriaz,$nama){
+			if ($this->insert('hitung',"'','$id_kr','$id_subkriteria','$nilai_gap','$nilai_bobot','$tanggal_lap','$kriteriaz','$nama'")->count()){
+				// echo "banding disimpan";
+			}
+		}
+
         //proses hasil 
         function bobot($kemampuan){
         	foreach ($this->select('bobot','kriteria')->where("kriteria='$kemampuan'")->get() as $bb) {
@@ -161,7 +168,6 @@
 			foreach ($this->select('bobot','kriteria')->where("id_kriteria='$typeKr'")->get() as $value) {
         		return $value[0];
             }
-			// echo "jancok";
 		}
 
 		function weekOfMonth($qDate) {

@@ -14,7 +14,7 @@
             <br/>  
               <div class="panel panel-default">
                   <div class="panel-heading">
-                    Form Kriteria
+                    Form Penilaian
                   </div>
                   <div class="panel-body">
                       <form method="post" action="insert_tpa.php" enctype="multipart/form-data">
@@ -25,7 +25,7 @@
                           <?php endif ?>
                           <div class="form-group col-md-12">
                               <div class="alert alert-info">
-                                  <i class="fa fa-info-circle"></i> Nama Yang Ditampilkan adalah nama karyawan yang belum dinilai...
+                                  <i class="fa fa-info-circle"></i> Nama Yang Ditampilkan adalah nama Karyawan yang belum dinilai...
                               </div>
                               <label for="nama">Nama Karyawan</label>
                                   <select required class="form-control" name="id_calon_kr">
@@ -38,7 +38,7 @@
                           <?php foreach ($db->select('id_kriteria,kriteria','kriteria')->get() as $r): ?>
                           <div class="form-group col-md-3">
                               <label>
-                                    <?php
+                                     <?php
                                         $tmp = explode('_',$r['kriteria']);
                                         echo ucwords(implode(' ',$tmp));
                                     ?>
